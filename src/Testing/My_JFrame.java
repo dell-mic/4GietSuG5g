@@ -60,10 +60,10 @@ public class My_JFrame extends JFrame {
 				
 				//XML zusammensetzen
 				writer.write("<content>"+ header + 
-							"<freigabe>" + freigabe + "</freigabe>"+
-							"<satzstatus>" + satzstatus + "</status>"+
-							"<gegnerzug>" + gegnerzug + "</gegnerzug>"+
-							"<sieger>" + sieger + "</sieger>"+ "</content>");
+							"<freigabe>" + cb_freigabe.getSelectedItem() + "</freigabe>"+
+							"<satzstatus>" + cb_satzstatus.getSelectedItem() + "</status>"+
+							"<gegnerzug>" + cb_gegnerzug.getSelectedItem() + "</gegnerzug>"+
+							"<sieger>" + cb_sieger.getSelectedItem() + "</sieger>"+ "</content>");
 				
 			
 				writer.close();	
