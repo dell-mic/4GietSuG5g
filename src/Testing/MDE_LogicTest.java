@@ -40,7 +40,7 @@ public class MDE_LogicTest {
 			
 			 //solange neu werfen lass bis ein gueltiger Zug gemacht wurde
 			while (!my_board.makeDrop(currentPlayer, Integer.valueOf(input))) {
-				JOptionPane.showMessageDialog(null, "Ungültiger Zug!");
+				JOptionPane.showMessageDialog(null, "Ungueltiger Zug!");
 				input = JOptionPane.showInputDialog("Spalte: ");
 				while (input == null || input.length() < 1) {
 					input = JOptionPane.showInputDialog("Spalte: ");

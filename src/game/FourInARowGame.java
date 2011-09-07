@@ -12,26 +12,33 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import ai.*;
+
 /**
  * @author Michi
  * Bildet ein Vier-Gewinnt-Spiel mit mehreren Saetzen ab
  */
 public class FourInARowGame implements Observer {
 	private ArrayList<Set> sets;
-	int setIndex = -1;
-	int setCount;
-	String enemy;
-	String commDirString;
-	File commDir;
-	FileMonitor commDirMonitor;
+	private int setIndex = -1;
+	private int setNumber;
+	private String enemy;
+	private String commDirString;
+	private File commDir;
+	private FileMonitor commDirMonitor;
 	
-	public FourInARowGame(int setCount, String commDirString) {
+	/**
+	 * Konstrukor, Erstellt ein neues Spielobjekt
+	 * @param setNumber Die Anzahl an Saetzen
+	 * @param commDirString Die Pfadangabe, unter der mit dem Server kommuniziert werden soll
+	 */
+	public FourInARowGame(int setNumber, String commDirString) {
 		sets = new ArrayList<Set>();
-		this.setCount = setCount;
+		this.setNumber = setNumber;
 		this.commDir = new File(commDirString);
 		this.commDirMonitor = new FileMonitor( new File(commDir + "\\test.txt"));
 		
-		//Wir werden ueber Aenderungen informiert
+		//Wir werden ueber Aenderungen informiert - hier: sobald eine neue Antwort des Servers empfangen wurde
 		this.commDirMonitor.addObserver(this);
 		
 		//Teste Kommunikationspfad
@@ -40,12 +47,27 @@ public class FourInARowGame implements Observer {
 	}
 	
 	/**
-	 * Beginnt einen neuen Satz
+	 * Beginnt einen neuen Satz und startet die Ueberwachung des Kommunikationspfades
 	 */
 	public void startNewSet() {
 		sets.add(new Set());
 		setIndex++;
 		commDirMonitor.startMonitoring();
+	}
+	
+	/**
+	 * Beendet den akutellen Satz
+	 */
+	public void endSet() {
+		commDirMonitor.stopMonitoring();
+	}
+	
+	/**
+	 * Liefert den gerade aktuellen Satz
+	 * @return Eine Referenz auf den Satz
+	 */
+	public Set getCurrentSet() {
+		return sets.get(setIndex);
 	}
 
 	/**
@@ -55,10 +77,27 @@ public class FourInARowGame implements Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		//Teste, ob es sich wirklich um eine korrekte Instanz handelt
 		if (arg1 != null && arg1 instanceof ServerResponse) { 
 			//Falls es sich um eine korrekte Serverantwort handelt in eigene Variable casten
 			ServerResponse serverResponse = (ServerResponse) arg1;
 			//TODO Antwort auswerten und reagieren
+			//Falls ein Gegnerzug uebermittelt wurde, muss dieser auch bei uns abgebildet werden //TODO SInd hier nur gueltige Zuege moeglich?
+			if (serverResponse.getGegnerzug() != -1) {
+				this.getCurrentSet().getBoard().makeDrop(Player.O, serverResponse.getGegnerzug());//TODO Spieler ermitteln
+				if (this.getCurrentSet().getBoard().findWinner() != null) {
+					this.endSet();
+					return;
+					//TODO Logik: Gewinner gefunden
+				}
+			}
+			//Falls Freigabe fuer uns erfolgt wird unser naechster Zug berechnet
+			if (serverResponse.getFreigabe()) {
+				IComputerPlayer ki = new RandomKI();
+				this.getCurrentSet().getBoard().makeMove(new Move(Player.X, ki.calcField(Player.X, this.getCurrentSet().getBoard())));
+				this.getCurrentSet().getBoard().print();
+			}
+			
 		}
 		
 	}
