@@ -24,7 +24,7 @@ public class Debug {
 	 /**
      * Gibt Debugging-Informationen auf der Standardkonsole aus. Je nach gesetzem Debug-Level werden unterschiedlich viele Meldungen ausgegeben.
      * @param level Der Debug-Level
-     * @param message Nachricht, die angezeigt werden solll
+     * @param message Nachricht, die angezeigt werden soll
      */
 	public static void log(int level, String message) {
         if (debug && level <= Debug.level)

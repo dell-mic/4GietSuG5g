@@ -18,12 +18,12 @@ import java.util.Observer;
  */
 public class FourInARowGame implements Observer {
 	private ArrayList<Set> sets;
-	int setIndex = -1;
-	int setCount;
-	String enemy;
-	String commDirString;
-	File commDir;
-	FileMonitor commDirMonitor;
+	private int setIndex = -1;
+	private int setCount;
+	private String enemy;
+	private String commDirString;
+	private File commDir;
+	private FileMonitor commDirMonitor;
 	
 	public FourInARowGame(int setCount, String commDirString) {
 		sets = new ArrayList<Set>();
