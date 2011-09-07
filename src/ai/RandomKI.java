@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import game.Board;
 import game.Field;
 import game.Player;
+import general.Debug;
 
 /**
  * @author apfelbaum24 Eine einfache KI, die einen (legalen) Zufallszug
@@ -22,14 +23,18 @@ public class RandomKI implements IComputerPlayer {
 	 */
 	@Override
 	public Field calcField(Player currentPlayer, Board currentBoard) {
+		
 		ArrayList<Field> legalMoves = currentBoard.getLegalMoves();
 
 		int highest = legalMoves.size() - 1;
 		// Zufaelligganzzahl erzeugen
-	    int randomColumn = (int) Math.round(Math.random() * highest)+1;
+	    int randomField = (int) Math.round(Math.random() * highest);
+	    Debug.log(35, "Random-KI: Generierte Zufallszahl: " + randomField);
 	    
 	    //korrespondiertendes Feld ermitteln
-	    Field targetField = currentBoard.findFirstEmtpyFieldInColumn(randomColumn);
+	    Field targetField = legalMoves.get(randomField);
+	    
+	    Debug.log(20, "Durch KI berechneter eigener Zug: (" + targetField.getColumn() + "/" + targetField.getRow() + ")");
 
 		return targetField;
 	}
