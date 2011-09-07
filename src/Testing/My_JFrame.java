@@ -13,17 +13,19 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JFileChooser;
 
 
-
+// Die Klasse My_JFrame erbt Eigenschaften von JFrame
 public class My_JFrame extends JFrame {
 	
-	FileWriter writer;
-	File file;
+	// Variablendeklaration
+	FileWriter writer;   // Klasse, um ind die XML-Datei schreiben zu können
+	File file;			// Dokument
 	JTextField path;
 	JComboBox cb_freigabe, cb_satzstatus, cb_sieger, cb_gegnerzug;
-	// Header Information für das XML-Dokument
-	String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+	String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";  // Header Information für das XML-Dokument
+	final JFileChooser fc = new JFileChooser();
 	
 	
 	public My_JFrame(){
@@ -51,8 +53,7 @@ public class My_JFrame extends JFrame {
 	public void generate_XML(String freigabe, String satzstatus, String gegnerzug, String sieger) throws IOException{
 		
 			    // erstellt das Dokument in dem vorgegebenen Pfad
-				file = new File("C:\\Users\\D053384\\Desktop\\server_xml.txt");
-				
+				file = new File("C:\\Users\\Bensen\\Desktop\\server_xml.txt");
 
 				// Erstellt eine neues Dokument. Ist bereits ein Dokument vorhande, wird es gelöscht
 				writer = new FileWriter(file, false);
@@ -121,6 +122,9 @@ public class My_JFrame extends JFrame {
 		JButton create = new JButton("creat XML");
 		create.setSize(20, 100);
 		cont.add(create);
+		JButton test = new JButton("open");
+		test.setSize(20, 100);
+		cont.add(test);
 		// Button-Click-Event wird erstellt
 		create.addActionListener(new ActionListener() {
  
@@ -138,6 +142,17 @@ public class My_JFrame extends JFrame {
 				}
             }
         });
+		
+		test.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e){
+				int bla = fc.showOpenDialog(null);
+				System.out.println(bla);
+				File file = fc.getSelectedFile();
+				String test = file.getPath();
+				System.out.println(test);
+			}
+		});
 		
 		
 	}
