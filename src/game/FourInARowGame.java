@@ -36,7 +36,7 @@ public class FourInARowGame implements Observer {
 		sets = new ArrayList<Set>();
 		this.setNumber = setNumber;
 		this.commDir = new File(commDirString);
-		this.commDirMonitor = new FileMonitor( new File(commDir + "\\test.txt"));
+		this.commDirMonitor = new FileMonitor( new File(commDir + "\\test.txt")); //TODO Dateinamen dynamisch ermitteln
 		
 		//Wir werden ueber Aenderungen informiert - hier: sobald eine neue Antwort des Servers empfangen wurde
 		this.commDirMonitor.addObserver(this);
@@ -50,7 +50,7 @@ public class FourInARowGame implements Observer {
 	 * Beginnt einen neuen Satz und startet die Ueberwachung des Kommunikationspfades
 	 */
 	public void startNewSet() {
-		sets.add(new Set());
+		sets.add(new Set(Player.X)); //TODO Unseren Spieler von GUI erhalten
 		setIndex++;
 		commDirMonitor.startMonitoring();
 	}
@@ -79,23 +79,37 @@ public class FourInARowGame implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		//Teste, ob es sich wirklich um eine korrekte Instanz handelt
 		if (arg1 != null && arg1 instanceof ServerResponse) { 
+			
 			//Falls es sich um eine korrekte Serverantwort handelt in eigene Variable casten
 			ServerResponse serverResponse = (ServerResponse) arg1;
+			
 			//TODO Antwort auswerten und reagieren
-			//Falls ein Gegnerzug uebermittelt wurde, muss dieser auch bei uns abgebildet werden //TODO SInd hier nur gueltige Zuege moeglich?
+			
+			//Falls ein Gegnerzug uebermittelt wurde, muss dieser auch bei uns abgebildet werden
 			if (serverResponse.getGegnerzug() != -1) {
-				this.getCurrentSet().getBoard().makeDrop(Player.O, serverResponse.getGegnerzug());//TODO Spieler ermitteln
-				if (this.getCurrentSet().getBoard().findWinner() != null) {
-					this.endSet();
-					return;
-					//TODO Logik: Gewinner gefunden
-				}
+				this.getCurrentSet().getBoard().makeDrop(this.getCurrentSet().getEnemyPlayer(), serverResponse.getGegnerzug());
+				this.getCurrentSet().setStartingPlayer(this.getCurrentSet().getEnemyPlayer());
+			} else { // Falls kein Gegnerzug uebermittelt wurde, sind wir in jedem Fall der startende Spieler
+				this.getCurrentSet().setStartingPlayer(this.getCurrentSet().getOurPlayer());
 			}
+			
 			//Falls Freigabe fuer uns erfolgt wird unser naechster Zug berechnet
 			if (serverResponse.getFreigabe()) {
 				IComputerPlayer ki = new RandomKI();
-				this.getCurrentSet().getBoard().makeMove(new Move(Player.X, ki.calcField(Player.X, this.getCurrentSet().getBoard())));
+				Player ourPlayer = this.getCurrentSet().getOurPlayer();
+				Field calculatedField = ki.calcField(ourPlayer, this.getCurrentSet().getBoard());
+				Move calculatedMove = new Move(ourPlayer, calculatedField);
+				
+				this.getCurrentSet().getBoard().makeMove(calculatedMove);
 				this.getCurrentSet().getBoard().print();
+				//TODO Unseren Zug per FileWriter an den Server uebermitteln
+			}
+			
+			//Falls ein Gewinenr feststeht, Satz beenden
+			Player winner;
+			if ( ( winner = this.getCurrentSet().getBoard().findWinner()) != null) {
+				Debug.log(0, "Satz #" + (setIndex+1) + " wurde von Spieler " + winner + " gewonnen!");
+				this.endSet();
 			}
 			
 		}

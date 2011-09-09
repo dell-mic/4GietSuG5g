@@ -22,28 +22,33 @@ public class FileWriter {
 	}
 	
 	/**
-	 * Schreibt eine Nachricht in die Datei für den Server
+	 * Schreibt eine Nachricht in die Datei für den Server und meldet Erfolg
 	 * @param message
+	 * @return TRUE, falls Datei korrekt erstellt werden konnte, FALSE sonst
 	 */
-	private void write(String message) {   
+	private boolean write(String message) {   
 		BufferedWriter bw = null;
+		Boolean success = true;
 	    try { 
 	        bw = new BufferedWriter(new java.io.FileWriter(file.getAbsolutePath())); 
 	    	bw.write(message);
 	    	bw.flush();
 	    } 
 	    catch (IOException ioe) { 
+	    	success = false;
 	    	Debug.error("Fehler beim Schreiben der Datei: " + ioe.getMessage());
 	    } 
 	    finally {
 	    	if (bw != null) {
 				try {
 					bw.close();
-				} catch (IOException e) {
-					Debug.error("Fehler beim Schreiben der Datei: " + e.getMessage());
+				} catch (IOException ioe) {
+					success = false;
+					Debug.error("Fehler beim Schreiben der Datei: " + ioe.getMessage());
 				}
 			}
 	    }
+	    return success;
 	}
 	
 	/**
@@ -57,8 +62,9 @@ public class FileWriter {
 	/**
 	 * Wrappermethode, um eine Ganzzahl in die Datei zu schreiben
 	 * @param move Die Spalte, in die gesetzt werden soll
+	 * @return TRUE, falls Datei korrekt erstellt werden konnte, FALSE sonst
 	 */
-	public void write(int move) {
-		write(String.valueOf(move));
+	public boolean writeMove(int move) {
+		return write(String.valueOf(move));
 	}
 }

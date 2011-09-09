@@ -11,14 +11,14 @@ import general.Config;
  */
 public class Set {
 	private Player startingPlayer;
-	private Player winningPlayer;
 	private Player currentPlayer;
 	private Player ourPlayer;
 	private Player enemyPlayer;
 	private Board board;
 	
-	public Set() {
+	public Set(Player ourPlayer) {
 		board = new Board(Config.COLS, Config.ROWS);
+		this.setOurPlayer(ourPlayer);
 	}
 	
 	public Player getStartingPlayer() {
@@ -30,7 +30,7 @@ public class Set {
 	}
 
 	public Player getWinningPlayer() {
-		return winningPlayer;
+		return this.board.findWinner();
 	}
 	
 	public Player getCurrentPlayer() {
@@ -45,8 +45,13 @@ public class Set {
 		return ourPlayer;
 	}
 
+	/**
+	 * Fixiert unseren Spieler und impliziet den der Gegnerpartei
+	 * @param ourPlayer Die "Farbe", die unser Spieler bekommt
+	 */
 	public void setOurPlayer(Player ourPlayer) {
 		this.ourPlayer = ourPlayer;
+		this.enemyPlayer = (ourPlayer == Player.X) ? Player.O : Player.X;
 	}
 
 	public Player getEnemyPlayer() {

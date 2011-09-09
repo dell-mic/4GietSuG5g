@@ -3,6 +3,8 @@
  */
 package game;
 
+import general.Debug;
+
 import java.util.ArrayList;
 
 /**
@@ -177,6 +179,8 @@ public class Board {
 
 			// Move in der Liste speichern und Erfolg melden
 			playerMoves.add(move);
+			
+			Debug.log(1, String.format("Board: Spieler " + move.getPlayer()+" wirft in Spalte %d und belegt somit Feld %d / %d", move.getColumn(), move.getColumn(), move.getRow()));
 			return true;
 		}
 		// Spalte ist voll oder Platz schon belegt

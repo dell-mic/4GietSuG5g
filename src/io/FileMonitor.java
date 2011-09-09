@@ -34,7 +34,7 @@ public class FileMonitor extends Observable  {
 	    if (filePath != null) {
 			try {
 				if (filePath.canRead()) {
-					Debug.log(3, "Datei wurde gefunden und kann gelesen werden!");
+					Debug.log(30, "FileMonitor: Datei wurde gefunden und kann gelesen werden!");
 					ServerResponse serverResponse = new SimpleXMLParser(filePath).parse();
 					if (serverResponse != null) {
 						// alle Oberserver informieren
@@ -42,23 +42,24 @@ public class FileMonitor extends Observable  {
 						notifyObservers(serverResponse);
 						
 						//Stoppe Timer
-						this.cancel();
+						//this.cancel();
+						//Debug.log(30, "FileMonitor: Timer automatisch gestoppt.");
 						
 						//loesche Datei
 						if (filePath.delete()) {
-							Debug.log(3, "Ursprungsdatei erfolgreich geloescht!");
+							Debug.log(30, "FileMonitor: Ursprungsdatei erfolgreich gelöscht!");
 						}
-						else Debug.error("Ursprungsdatei konnte nicht geloescht werden!");
+						else Debug.error("FileMonitor: Ursprungsdatei konnte nicht gelöscht werden!");
 					}
 				} else {
-					Debug.log(3, "Keine Datei unter angegebenem Pfad gefunden.");
+					Debug.log(30, "FileMonitor: Keine Datei unter angegebenem Pfad gefunden.");
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			Debug.error("Error: Pfad zur zu ueberwachenden Datei nicht angegeben!");
+			Debug.error("FileMonitor-Error: Pfad zur zu ueberwachenden Datei nicht angegeben!");
 		}
 	  }
 	}
@@ -77,10 +78,11 @@ public class FileMonitor extends Observable  {
 	 */
 	public void startMonitoring() {
 		// Timer starten
+		Debug.log(30, "Starte Monitoring ...");
         monitor = new Timer();
         monitor.schedule(new CheckFileTask(), 0, 1000//Config.TIMERINTERVALL
         		);
-        Debug.log(3, "Monitoring gestartet!");
+        
 	}
 	
 	/**
@@ -89,7 +91,7 @@ public class FileMonitor extends Observable  {
 	public void stopMonitoring() {
 		if (this.monitor != null) {
 			this.monitor.cancel();
-			Debug.log(3, "Monitoring gestoppt!");
+			Debug.log(30, "Monitoring gestoppt!");
 		}
 	}
 

@@ -42,7 +42,7 @@ public class SimpleXMLParser {
             
             try {
                     // Datei einlesen
-                    Debug.log(2, "Lese Datei ein...");
+                    Debug.log(20, "XMLParser: Lese Datei ein...");
                     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                     DocumentBuilder db = dbf.newDocumentBuilder();
                     Document doc = db.parse(file);
@@ -67,7 +67,7 @@ public class SimpleXMLParser {
                             
                             // Rueckgabewert setzen
                             result = new ServerResponse(freigabe, satzstatus, gegnerzug, sieger);
-                            Debug.log(2, String.format("XML Datei erfolgreich eingelesen (Freigabe=%b;Satzstatus=%s;Gegnerzug=%d;Sieger=%s).", freigabe, satzstatus, gegnerzug, sieger));
+                            Debug.log(20, String.format("XML Datei erfolgreich eingelesen (Freigabe=%b;Satzstatus=%s;Gegnerzug=%d;Sieger=%s).", freigabe, satzstatus, gegnerzug, sieger));
                     }
                     else Debug.error("Fehler beim Einlesen der XML Datei: Konnte \"content\" Root-Node nicht finden!");
             } catch (Exception e) {
