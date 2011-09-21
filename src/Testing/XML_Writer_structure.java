@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JFileChooser;
 
 // Die Klasse My_JFrame erbt Eigenschaften von JFrame
-public class My_JFrame extends JFrame {
+public class XML_Writer_structure extends JFrame {
 
 	// Variablendeklaration
 	FileWriter writer; // Klasse, um ind die XML-Datei schreiben zu können
@@ -30,7 +30,7 @@ public class My_JFrame extends JFrame {
 	JFileChooser fc; // Objekt, um den Dateiexplorer öffnen zu können
 	String file_path;
 
-	public My_JFrame() {
+	public XML_Writer_structure() {
 		super("XML-Creator");
 		this.setSize(300, 300);
 		Container content = this.getContentPane();
@@ -66,7 +66,7 @@ public class My_JFrame extends JFrame {
 		// Zwischenspeicherung der Eingaben
 
 		// XML zusammensetzen
-		writer.write("<content>" + header + "<freigabe>"
+		writer.write( header + "<content>" + "<freigabe>"
 				+ cb_freigabe.getSelectedItem() + "</freigabe>"
 				+ "<satzstatus>" + cb_satzstatus.getSelectedItem()
 				+ "</status>" + "<gegnerzug>" + cb_gegnerzug.getSelectedItem()
@@ -166,7 +166,7 @@ public class My_JFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				fc = new JFileChooser();
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int dialog = fc.showOpenDialog(My_JFrame.this);
+				int dialog = fc.showOpenDialog(XML_Writer_structure.this);
 				if (dialog == JFileChooser.APPROVE_OPTION) {
 					File file = fc.getSelectedFile();
 					// Pfad des angegebenen Orders wird gespeichert
