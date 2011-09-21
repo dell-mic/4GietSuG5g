@@ -1,18 +1,7 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.MouseListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.LayoutStyle;
+import java.awt.*;
+import javax.swing.*;
 
 public class A_UIStartBild {
 
@@ -44,7 +33,7 @@ public class A_UIStartBild {
 			
 			
 			// Grafik für die Optik
-			JLabel picLabel2 = new JLabel(new ImageIcon("ui/4gewinnt_small.jpg"));
+			JLabel picLabel2 = new JLabel(new ImageIcon("images/4gewinnt_small.jpg"));
 			picLabel2.setLocation(332, 50);
 			picLabel2.setSize(360, 220);
 			frmMain.add(picLabel2);	
