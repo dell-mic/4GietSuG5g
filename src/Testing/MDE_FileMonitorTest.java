@@ -19,6 +19,7 @@ public class MDE_FileMonitorTest {
 		FourInARowGame testGame = new FourInARowGame(Config.SETCOUNT, "/Users/apfelbaum24/Dropbox/WI-Projekt INTERN/test"); // C:\\Users\\Michi\\Desktop
 		
 		testGame.startNewSet();
+		//testGame.getCurrentSet().getWinningPlayer();
 		//my_monitor.startMonitoring();
 		
 		//my_monitor.setFilePath(new File("C:\\Users\\Michi\\Desktop\\test.txt"));
