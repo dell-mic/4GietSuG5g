@@ -36,7 +36,7 @@ public class FourInARowGame implements Observer {
 		sets = new ArrayList<Set>();
 		this.setNumber = setNumber;
 		this.commDir = new File(commDirString);
-		this.commDirMonitor = new FileMonitor( new File(commDir + "\\test.txt")); //TODO Dateinamen dynamisch ermitteln
+		this.commDirMonitor = new FileMonitor( new File(commDir + "/server_xml.txt")); //TODO Dateinamen dynamisch ermitteln
 		
 		//Wir werden ueber Aenderungen informiert - hier: sobald eine neue Antwort des Servers empfangen wurde
 		this.commDirMonitor.addObserver(this);

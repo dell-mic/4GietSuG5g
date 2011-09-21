@@ -119,7 +119,7 @@ public class My_JFrame extends JFrame {
 		JLabel lb_gegnerzug = new JLabel("Gegnerzug");
 		cont.add(lb_gegnerzug);
 
-		String[] choose_gegnerzug = { "1", "2", "3", "4", "5", "6" };
+		String[] choose_gegnerzug = { "-1", "1", "2", "3", "4", "5", "6" };
 		cb_gegnerzug = new JComboBox(choose_gegnerzug);
 		cb_gegnerzug.setSelectedIndex(0);
 		cont.add(cb_gegnerzug);
