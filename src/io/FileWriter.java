@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * @author Michi
- * Klasse zum schreiben der Kommunikationsdateien fuer den Server
+ * Klasse zum Schreiben der Kommunikationsdateien fuer den Server
  */
 public class FileWriter {
 	private File file;
@@ -33,10 +33,11 @@ public class FileWriter {
 	        bw = new BufferedWriter(new java.io.FileWriter(file.getAbsolutePath())); 
 	    	bw.write(message);
 	    	bw.flush();
+	    	Debug.log(20, "File-Writer: Antwortdatei erfolgreich erstellt.");
 	    } 
 	    catch (IOException ioe) { 
 	    	success = false;
-	    	Debug.error("Fehler beim Schreiben der Datei: " + ioe.getMessage());
+	    	Debug.error("File-Writer: Fehler beim Schreiben der Datei: " + ioe.getMessage());
 	    } 
 	    finally {
 	    	if (bw != null) {
@@ -44,7 +45,7 @@ public class FileWriter {
 					bw.close();
 				} catch (IOException ioe) {
 					success = false;
-					Debug.error("Fehler beim Schreiben der Datei: " + ioe.getMessage());
+					Debug.error("File-Writer: Fehler beim Schreiben der Datei: " + ioe.getMessage());
 				}
 			}
 	    }
@@ -52,8 +53,8 @@ public class FileWriter {
 	}
 	
 	/**
-	 * Setzt den Pfad für die zu schreibende Datei neu
-	 * @param path
+	 * Setzt den Pfad zu der zu schreibende Datei neu
+	 * @param path Der Pfad zur Datei
 	 */
 	public void setPath(String path) {
 		file = new File(path);
