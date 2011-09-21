@@ -12,6 +12,7 @@ import general.Config;
 public class Set {
 	private Player startingPlayer;
 	private Player currentPlayer;
+	private Player winnerPlayer;
 	private Player ourPlayer;
 	private Player enemyPlayer;
 	private Board board;
@@ -21,6 +22,26 @@ public class Set {
 		this.setOurPlayer(ourPlayer);
 	}
 	
+	
+	/**
+	 * Fuehrt einen Zug aus und aktualisiert den Gewinner
+	 * @param move Der Zug, der auf dem Brett gemacht werden soll
+	 */
+	public void makeMove(Move move) {
+		board.makeMove(move);
+		winnerPlayer = board.findWinner();
+	}
+	
+	/**
+	 * Fuehrt einen Wurf aus und aktualisiert den Gewinner
+	 * @param player Der werfende Spieler
+	 * @param column Die Spalte, in die geworfen werden soll
+	 */
+	public void makeDrop(Player player, int column) {
+		board.makeDrop(player, column);
+		winnerPlayer = board.findWinner();
+	}
+	
 	public Player getStartingPlayer() {
 		return startingPlayer;
 	}
@@ -28,18 +49,19 @@ public class Set {
 	public void setStartingPlayer(Player startingPlayer) {
 		this.startingPlayer = startingPlayer;
 	}
-
-	public Player getWinningPlayer() {
-		return this.board.findWinner();
-	}
-	
-	//TODO Winning Player manuell setzen
-	
 	
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
 	
+	public Player getWinnerPlayer() {
+		return winnerPlayer;
+	}
+
+	public void setWinnerPlayer(Player winnerPlayer) {
+		this.winnerPlayer = winnerPlayer;
+	}
+
 	public Board getBoard() {
 		return board;
 	}
@@ -61,8 +83,13 @@ public class Set {
 		return enemyPlayer;
 	}
 
+	/**
+	 * Fixiert den gegnerischen Spieler und implizit unseren
+	 * @param enemyPlayer Die "Farbe", die der Gegenspieler bekommt
+	 */
 	public void setEnemyPlayer(Player enemyPlayer) {
 		this.enemyPlayer = enemyPlayer;
+		this.ourPlayer = (enemyPlayer == Player.X) ? Player.O : Player.X;
 	}
 	
 	

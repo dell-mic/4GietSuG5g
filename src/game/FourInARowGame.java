@@ -87,7 +87,7 @@ public class FourInARowGame implements Observer {
 			
 			//Falls ein Gegnerzug uebermittelt wurde, muss dieser auch bei uns abgebildet werden
 			if (serverResponse.getGegnerzug() != -1) {
-				this.getCurrentSet().getBoard().makeDrop(this.getCurrentSet().getEnemyPlayer(), serverResponse.getGegnerzug());
+				this.getCurrentSet().makeDrop(this.getCurrentSet().getEnemyPlayer(), serverResponse.getGegnerzug());
 				this.getCurrentSet().setStartingPlayer(this.getCurrentSet().getEnemyPlayer());
 			} else { // Falls kein Gegnerzug uebermittelt wurde, sind wir in jedem Fall der startende Spieler
 				this.getCurrentSet().setStartingPlayer(this.getCurrentSet().getOurPlayer());
@@ -100,7 +100,7 @@ public class FourInARowGame implements Observer {
 				Field calculatedField = ki.calcField(ourPlayer, this.getCurrentSet().getBoard());
 				Move calculatedMove = new Move(ourPlayer, calculatedField);
 				
-				this.getCurrentSet().getBoard().makeMove(calculatedMove);
+				this.getCurrentSet().makeMove(calculatedMove);
 				this.getCurrentSet().getBoard().print();
 				//TODO Unseren Zug per FileWriter an den Server uebermitteln
 			}

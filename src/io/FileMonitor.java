@@ -47,9 +47,9 @@ public class FileMonitor extends Observable  {
 						
 						//loesche Datei
 						if (filePath.delete()) {
-							Debug.log(30, "FileMonitor: Ursprungsdatei erfolgreich gelöscht!");
+							Debug.log(30, "FileMonitor: Ursprungsdatei erfolgreich geloescht!");
 						}
-						else Debug.error("FileMonitor: Ursprungsdatei konnte nicht gelöscht werden!");
+						else Debug.error("FileMonitor: Ursprungsdatei konnte nicht geloescht werden!");
 					}
 				} else {
 					Debug.log(30, "FileMonitor: Keine Datei unter angegebenem Pfad gefunden.");
