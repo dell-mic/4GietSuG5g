@@ -3,6 +3,8 @@
  */
 package game;
 
+import java.util.Date;
+
 import general.Config;
 
 /**
@@ -16,6 +18,32 @@ public class Set {
 	private Player ourPlayer;
 	private Player enemyPlayer;
 	private Board board;
+	
+	//Zeitstempel, wann ein Satz begonne und beendet wurde
+	private Date startTime;
+	private Date endTime;
+	
+	public Date getStartTime() {
+		return startTime;
+	}
+
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	//Der vom Server uebermittelte Satzsatus
+	private String setStatus;
 	
 	public Set(Player ourPlayer) {
 		board = new Board(Config.COLS, Config.ROWS);
@@ -40,6 +68,14 @@ public class Set {
 	public void makeDrop(Player player, int column) {
 		board.makeDrop(player, column);
 		winnerPlayer = board.findWinner();
+	}
+	
+	public String getSetStatus() {
+		return setStatus;
+	}
+
+	public void setSetStatus(String setStatus) {
+		this.setStatus = setStatus;
 	}
 	
 	public Player getStartingPlayer() {

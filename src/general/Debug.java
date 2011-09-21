@@ -1,6 +1,7 @@
 package general;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -14,11 +15,14 @@ public class Debug {
 	
 	/**
 	 * Setzt das Debug-Level, bis zu welchem die Meldungen ausgegeben werden sollen
+	 * -1: Errors/Fehlermeldungen
 	 * 10: Hauptmeldungen, z.B: "Spiel gestartet"
 	 * 20: Ereignisse, z.B: Button geklickt
 	 * 30: Interne Debug-Informationen, z.B: Variable X hat Werte Y
 	 */
 	private static int level = 99;
+	
+	private static ArrayList<LogMessage> logHistory = new ArrayList<LogMessage>();
 	
 	
 	 /**
@@ -27,6 +31,7 @@ public class Debug {
      * @param message Nachricht, die angezeigt werden soll
      */
 	public static void log(int level, String message) {
+		logHistory.add(new LogMessage(level, message));
         if (debug && level <= Debug.level)
                 System.out.println(getTimeStamp() + " " + message);
 	}
@@ -36,6 +41,7 @@ public class Debug {
      * @param message
      */
     public static void error(String message) {
+    	logHistory.add(new LogMessage(-1, message));
             System.err.println(getTimeStamp() + " " + message);
     }
 	

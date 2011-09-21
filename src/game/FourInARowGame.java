@@ -9,6 +9,7 @@ import io.ServerResponse;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,12 +20,24 @@ import ai.*;
  * Bildet ein Vier-Gewinnt-Spiel mit mehreren Saetzen ab
  */
 public class FourInARowGame implements Observer {
+	
+	//Die Saetze
 	private ArrayList<Set> sets;
+	
+	//Index des aktuellen Satzes
 	private int setIndex = -1;
+	
+	//Die Anzahl der Saetze
 	private int setNumber;
-	private String enemy;
+	
+	//Die Nummer der Gegnergruppe
+	private int enemy;
+	
+	//Der Pfad zum Kommunikationsverzeichnis
 	private String commDirString;
 	private File commDir;
+	
+	//Der Filemonitor zur Ueberwachung
 	private FileMonitor commDirMonitor;
 	
 	/**
@@ -47,10 +60,47 @@ public class FourInARowGame implements Observer {
 	}
 	
 	/**
+	 * Ermittelt den Spielstand nach Saetzen
+	 * @return String der Form "Anzahl von uns gewonnen Saetze":"Anzahl von Gegner gewonnen Saetze"; z.B. "2:1"
+	 */
+	public String getScore() {
+		return "0:0"; //TODO Spielstand nach Saetzen ermitteln und als String zurückliefern
+	}
+	
+	/**
+	 * Ueberprueft, ob wir bereits das Spiel gewonnen haben
+	 * @return Liefer TRUE zurueck, falls wir nach Saetzen gewonnen haben, FALSE sonst
+	 */
+	public boolean checkWinStatus() {
+		return false; //TODO implementieren
+	}
+	
+	/**
+	 * Setzt eine neues Kommunikationsverzeichnis
+	 * @param commDirString Der Pfad zum Verzeichnis
+	 */
+	public void setCommDir(String commDirString) {
+		this.commDirString = commDirString;
+		
+		this.commDir = new File(commDirString);
+		this.commDirMonitor = new FileMonitor( new File(commDir + "/server_xml.txt")); //TODO Dateinamen dynamisch ermitteln
+		
+		//Wir werden ueber Aenderungen informiert - hier: sobald eine neue Antwort des Servers empfangen wurde
+		this.commDirMonitor.addObserver(this);
+		
+		//Teste Kommunikationspfad
+		if (commDir.canWrite()) Debug.log(2, "Kommunikationspfad erfolgreich eingerichtet.");
+		else Debug.error("Angegebenes Kommunikationsverzeichnes konnte nicht eingerichtet werden!");
+	}
+	
+	
+	/**
 	 * Beginnt einen neuen Satz und startet die Ueberwachung des Kommunikationspfades
 	 */
 	public void startNewSet() {
-		sets.add(new Set(Player.X)); //TODO Unseren Spieler von GUI erhalten
+		Set newSet = new Set(Player.X); //TODO Unseren Spieler von GUI erhalten
+		newSet.setStartTime(new Date());
+		sets.add(newSet); 
 		setIndex++;
 		commDirMonitor.startMonitoring();
 	}
@@ -68,6 +118,15 @@ public class FourInARowGame implements Observer {
 	 */
 	public Set getCurrentSet() {
 		return sets.get(setIndex);
+	}
+
+
+	public ArrayList<Set> getSets() {
+		return sets;
+	}
+
+	public int getSetNumber() {
+		return setNumber;
 	}
 
 	/**
