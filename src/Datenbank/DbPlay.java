@@ -37,9 +37,7 @@ public class DbPlay {
 		dbConnection = DriverManager.getConnection("jdbc:hsqldb:file:" + PATH, "sa", "");  //Verbindungsaufbau
 		
 		// Prüfen, ob DB schon existiert
-		// falls die Datenbank leer ist, Tabellen erstellen
-		if (isEmptyDB())
-			initDB();
+		isEmptyDB();
 		
 	}
 	
@@ -47,19 +45,19 @@ public class DbPlay {
 	
 	/**
 	 * Datenbank prüfen - wenn DB leer werden keine Tabellen gefunden
-	 * @return
 	 * @throws SQLException
 	 */
-	private synchronized boolean isEmptyDB() throws SQLException {
+	private synchronized void isEmptyDB() throws SQLException {
 		DatabaseMetaData databaseMetaData = dbConnection.getMetaData();
 		ResultSet rs = databaseMetaData.getTables(null, null, null,	new String[] { "TABLE" });
-
+		
 		// falls es einen Datensatz gibt, wurde mindestens eine Tabelle gefunden
 		if (rs.next())
-			return false;
+			insertDB(); // Absprung in Einfügen der Daten
 
 		// kein Datensatz vorhanden, demnach ist auch keine Tabelle vorhanden
-		return true;
+		else
+			initDB(); // Absprung erzeugen der Tabellen
 	}
 	
 	/**
@@ -89,24 +87,24 @@ public class DbPlay {
 		statement("CREATE TABLE Move ("
 				+ " MoveID INT NOT NULL,"
 				+ " GameID INT NOT NULL,"
-				+ " RoundID INT NOT NULL,"
+				+ " SetID INT NOT NULL,"
 				+ " PlayerID INT NOT NULL,"
-				+ " PositionX INT,"
-				+ " PositionY INT,"
-				+ " CONSTRAINT pk_Move PRIMARY KEY (MoveID, PlayerID, RoundID),"
-				+ " CONSTRAINT fk_Move_Player FOREIGN KEY (PlayerID) PREFERENCES Player (PlayerID),"
-				+ " CONSTRAINT fk_Move_Round FOREIGN KEY (RoundID) PREFERENCES Round (RoundID, GameID),"
+				+ " Column INT,"
+				+ " Row INT,"
+				+ " CONSTRAINT pk_Move PRIMARY KEY (MoveID, PlayerID, SetID),"
+				+ " CONSTRAINT fk_Move_Player FOREIGN KEY (PlayerID) REFERENCES Player (PlayerID),"
+				+ " CONSTRAINT fk_Move_Set FOREIGN KEY (SetID)  REFERENCES Set (SetID, GameID),"
 				+ ");"
 		);
 
 		// Tabelle für den Satz
-		statement("CREATE TABLE Round ("
+		statement("CREATE TABLE Set ("
 				+ " GameID INT NOT NULL,"
-				+ " RoundID INT NOT NULL,"
+				+ " SetID INT NOT NULL,"
 				+ " Beginn TIMESTAMP,"
 				+ " End TIMESTAMP,"
-				+ " CONSTRAINT pk_Round PRIMARY KEY (GameID, RoundID),"
-				+ " CONSTRAINT fk_Round_Game FOREIGN KEY (GameID) PREFERENCES Game (GameID),"
+				+ " CONSTRAINT pk_Set PRIMARY KEY (GameID, SetID),"
+				+ " CONSTRAINT fk_Set_Game FOREIGN KEY (GameID) REFERENCES Game (GameID),"
 				+ ");"
 		);
 		
@@ -117,24 +115,24 @@ public class DbPlay {
 				+ " Win INT,"
 				+ " Sign VARCHAR(255),"
 				+ " CONSTRAINT pk_PPG PRIMARY KEY (PlayerID, GameID),"
-				+ " CONSTRAINT fk_PPG_Game FOREIGN KEY (GameID) PREFERENCES Game (GameID),"
+				+ " CONSTRAINT fk_PPG_Game FOREIGN KEY (GameID) REFERENCES Game (GameID),"
 				+ ");"
 		);
 		
 		// Tabelle für Spieler spielt Satz
-		statement("CREATE TABLE PlayerPlaysRound ("
+		statement("CREATE TABLE PlayerPlaysSet ("
 				+ " GameID INT NOT NULL,"
-				+ " RoundID INT NOT NULL,"
+				+ " SetID INT NOT NULL,"
 				+ " PlayerID INT NOT NULL,"
 				+ " Win INT,"
 				+ " Starts INT,"
-				+ " CONSTRAINT pk_PPR PRIMARY KEY (PlayerID, GameID, RoundID),"
-				+ " CONSTRAINT fk_PPR_Game FOREIGN KEY (GameID) PREFERENCES Game (GameID),"
-				+ " CONSTRAINT fk_PPR_Player FOREIGN KEY (PlayerID) PREFERENCES Player (PlayerID),"
+				+ " CONSTRAINT pk_PPR PRIMARY KEY (PlayerID, GameID, SetID),"
+				+ " CONSTRAINT fk_PPR_Game FOREIGN KEY (GameID) REFERENCES Game (GameID),"
+				+ " CONSTRAINT fk_PPR_Player FOREIGN KEY (PlayerID) REFERENCES Player (PlayerID),"
 				+ ");"
 		);
 		
-		
+		insertDB();
 		
 		}
 		catch (SQLException e) {
@@ -143,6 +141,20 @@ public class DbPlay {
 		}
 	
 		}
+	
+	/**
+	 * Datensaätzen in die Tabelle speichern (Spiel, Spieler, Sätze, Spielzüge)
+	 * @param SQL Anweisung
+	 * @throws SQLException
+	 */
+	
+	private synchronized void insertDB()
+	{
+		//E
+		
+	}
+	
+	
 	
 	/**
 	 * Führt ein beliebiges Update Statement auf der Datenbank aus
