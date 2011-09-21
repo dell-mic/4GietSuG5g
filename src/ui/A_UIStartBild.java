@@ -44,7 +44,7 @@ public class A_UIStartBild {
 			
 			
 			// Grafik für die Optik
-			JLabel picLabel2 = new JLabel(new ImageIcon("4gewinnt_small.jpg"));
+			JLabel picLabel2 = new JLabel(new ImageIcon("ui/4gewinnt_small.jpg"));
 			picLabel2.setLocation(332, 50);
 			picLabel2.setSize(360, 220);
 			frmMain.add(picLabel2);	
