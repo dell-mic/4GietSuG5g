@@ -82,7 +82,7 @@ public class A_UISpiel {
 			
 				// Komponenten des Panels - Spielsteine
 				// Lediglich eine Graphik zur Veranschaulichung
-				JLabel picLabel = new JLabel(new ImageIcon("images/4gewinnt_small.jpg"));
+				JLabel picLabel = new JLabel(new ImageIcon("4gewinnt_small.jpg"));
 				picLabel.setBounds(10, 15, 260, 220);
 				picLabel.setSize(260, 220);
 				pnlSpiel.add(picLabel);
@@ -111,7 +111,7 @@ public class A_UISpiel {
 			
 				
 			// Grafik für die Optik
-			JLabel picLabel2 = new JLabel(new ImageIcon("images/pic.jpg"));
+			JLabel picLabel2 = new JLabel(new ImageIcon("pic.jpg"));
 			picLabel2.setLocation(680, 80);
 			picLabel2.setSize(280, 490);
 			frmMain.add(picLabel2);	

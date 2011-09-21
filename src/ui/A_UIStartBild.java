@@ -33,11 +33,12 @@ public class A_UIStartBild {
 			
 			
 			// Grafik für die Optik
-			JLabel picLabel2 = new JLabel(new ImageIcon("images/4gewinnt_small.jpg"));
+			JLabel picLabel2 = new JLabel(new ImageIcon("4gewinnt_small.jpg"));
 			picLabel2.setLocation(332, 50);
 			picLabel2.setSize(360, 220);
-			frmMain.add(picLabel2);	
+			frmMain.add(picLabel2);
 			
+
 			
 			// Button für die Menueauswahl
 			JButton btnNewGame = new JButton("Neues Spiel");
