@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 
 
-public class xml_Writer {
+public class XML_Writer {
 
 	/**
 	 * @param args
@@ -20,7 +20,7 @@ public class xml_Writer {
 		
 	
 		
-		My_JFrame myFrame = new My_JFrame();
+		XML_Writer_structure myFrame = new XML_Writer_structure();
 		myFrame.show();
 		
 	
