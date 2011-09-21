@@ -33,6 +33,9 @@ public class Set {
 		return this.board.findWinner();
 	}
 	
+	//TODO Winning Player manuell setzen
+	
+	
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
