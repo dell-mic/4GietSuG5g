@@ -23,7 +23,7 @@ public class XML_Writer_structure extends JFrame {
 	File file; // Dokument
 	JTextField path;
 	JComboBox cb_freigabe, cb_satzstatus, cb_sieger, cb_gegnerzug;
-	String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"; // Header
+	String header = "<?xml version='1.0' encoding='UTF-8'?>"; // Header
 																	// Information
 																	// für das
 																	// XML-Dokument
@@ -68,10 +68,10 @@ public class XML_Writer_structure extends JFrame {
 		// XML zusammensetzen
 		writer.write( header + "<content>" + "<freigabe>"
 				+ cb_freigabe.getSelectedItem() + "</freigabe>"
-				+ "<satzstatus>" + cb_satzstatus.getSelectedItem()
-				+ "</status>" + "<gegnerzug>" + cb_gegnerzug.getSelectedItem()
-				+ "</gegnerzug>" + "<sieger>" + cb_sieger.getSelectedItem()
-				+ "</sieger>" + "</content>");
+				+ "<satzstatus>" + cb_satzstatus.getSelectedItem()+ "</satzstatus>" 
+				+ "<gegnerzug>" + cb_gegnerzug.getSelectedItem()+ "</gegnerzug>" 
+				+ "<sieger>" + cb_sieger.getSelectedItem()+ "</sieger>" 
+				+ "</content>");
 
 		writer.close();
 		System.out.println(cb_freigabe.getSelectedItem());
