@@ -8,7 +8,8 @@ import general.Debug;
 import java.util.ArrayList;
 
 /**
- * @author Michi Bildet ein Vier-Gewinnt-Spielfeld ab.
+ * @author Michi 
+ * Bildet ein Vier-Gewinnt-Spielfeld ab.
  */
 public class Board {
 
