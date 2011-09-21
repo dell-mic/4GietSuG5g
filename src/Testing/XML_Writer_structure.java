@@ -15,7 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JFileChooser;
 
-// Die Klasse My_JFrame erbt Eigenschaften von JFrame
+/**
+ * 
+ * @author Bensen
+ * Aufbau des XML-Writers
+ */
 public class XML_Writer_structure extends JFrame {
 
 	// Variablendeklaration
@@ -44,14 +48,10 @@ public class XML_Writer_structure extends JFrame {
 	/**
 	 * Generierung eines Textdokuments im XML-Format
 	 * 
-	 * @param freigabe
-	 *            Übergabeparameter für die Dropdownbox "Freigabe"
-	 * @param satzstatus
-	 *            Übergabeparameter für die Dropdownbox "Satzstatus"
-	 * @param gegnerzug
-	 *            Übergabeparameter für die Dropdownbox "Gegnerzug"
-	 * @param sieger
-	 *            Übergabeparameter für die Dropdownbox "Sieger"
+	 * @param freigabe          Uebergabeparameter für die Dropdownbox "Freigabe"
+	 * @param satzstatus        Uebergabeparameter für die Dropdownbox "Satzstatus"
+	 * @param gegnerzug         Uebergabeparameter für die Dropdownbox "Gegnerzug"
+	 * @param sieger         Uebergabeparameter für die Dropdownbox "Sieger"
 	 * @throws IOException
 	 */
 	public void generate_XML(String freigabe, String satzstatus,
@@ -74,7 +74,7 @@ public class XML_Writer_structure extends JFrame {
 				+ "</content>");
 
 		writer.close();
-		System.out.println(cb_freigabe.getSelectedItem());
+		System.out.println("XML wurde erstellt");
 	}
 
 	/**
@@ -82,17 +82,18 @@ public class XML_Writer_structure extends JFrame {
 	 * Filechooser in dem Frame
 	 * 
 	 * @param cont
-	 *            Übergabeparameter von der Content-Pane
+	 *            Uebergabeparameter von der Content-Pane
 	 */
 	public void create_elements(Container cont) {
 
+		// Label für das Textfeld, welches den ausgewählten Pfad anzeigt
 		JLabel lb_path = new JLabel("Pfad:");
 		cont.add(lb_path);
-
+		// Tesxfeld für den anzuzeigenden Pfad
 		path = new JTextField();
 		cont.add(path);
 
-		// erstellt Label und das zugehörige Dropdownbox
+		// erstellt ein Label und die zugehörige Dropdownbox
 		JLabel lb_freigabe = new JLabel("Freigabe");
 		cont.add(lb_freigabe);
 
@@ -119,7 +120,7 @@ public class XML_Writer_structure extends JFrame {
 		JLabel lb_gegnerzug = new JLabel("Gegnerzug");
 		cont.add(lb_gegnerzug);
 
-		String[] choose_gegnerzug = { "1", "2", "3", "4", "5", "6" };
+		String[] choose_gegnerzug = { "-1", "0", "1", "2", "3", "4", "5", "6" };
 		cb_gegnerzug = new JComboBox(choose_gegnerzug);
 		cb_gegnerzug.setSelectedIndex(0);
 		cont.add(cb_gegnerzug);
@@ -137,9 +138,8 @@ public class XML_Writer_structure extends JFrame {
 
 		// Button zum Erstellen des XMLs
 		JButton create = new JButton("creat XML");
-		create.setSize(20, 100);
 		cont.add(create);
-		JButton test = new JButton("open");
+		
 
 		// Button-Click-Event wird erstellt
 		create.addActionListener(new ActionListener() {
@@ -157,10 +157,10 @@ public class XML_Writer_structure extends JFrame {
 			}
 		});
 
-		// Button, um den Pfad der zu erstellenden Excel anzugeben
-		test.setSize(20, 100);
-		cont.add(test);
-		test.addActionListener(new ActionListener() {
+		JButton open = new JButton("open");
+		// Button, um den Pfad der zu erstellenden XML anzugeben
+		cont.add(open);
+		open.addActionListener(new ActionListener() {
 
 			// Dialog zum angeben eines Pfades wird geöffnet
 			public void actionPerformed(ActionEvent e) {
@@ -173,6 +173,7 @@ public class XML_Writer_structure extends JFrame {
 					String directory_path = file.getPath();
 					// Pfad wird im den Dateinamen erweitert
 					file_path = directory_path + "\\server_xml.txt";
+					// Pfad als Text ausgeben
 					path.setText(directory_path);
 				} else {
 					System.out.println("keine Auswahl");

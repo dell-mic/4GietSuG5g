@@ -11,16 +11,17 @@ import javax.swing.JFrame;
 public class XML_Writer {
 
 	/**
-	 * @param args
-	 * @throws IOException 
+	 * 
+	 * Programm, um XML-Dokumente zu erstellen
 	 */
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
 	
-		
+		// Fenster für den XML_Writer wird erstellt
 		XML_Writer_structure myFrame = new XML_Writer_structure();
+		// Fenster wird gezeigt
 		myFrame.show();
 		
 	
