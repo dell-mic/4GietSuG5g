@@ -64,6 +64,22 @@ public class FourInARowGame implements Observer {
 	}
 	
 	/**
+	 * 
+	 * @return Die Gruppennummer des Gegners
+	 */
+	public int getEnemy() {
+		return enemy;
+	}
+
+	/**
+	 * Setzt die Gruppennummer des Gegners
+	 * @param enemy Die Gruppennummer des Gegners
+	 */
+	public void setEnemy(int enemy) {
+		this.enemy = enemy;
+	}
+
+	/**
 	 * Ueberprueft, ob wir bereits das Spiel gewonnen haben
 	 * @return Liefer TRUE zurueck, falls wir nach Saetzen gewonnen haben, FALSE sonst
 	 */

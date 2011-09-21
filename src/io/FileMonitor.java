@@ -80,8 +80,7 @@ public class FileMonitor extends Observable  {
 		// Timer starten
 		Debug.log(30, "Starte Monitoring ...");
         monitor = new Timer();
-        monitor.schedule(new CheckFileTask(), 0, 1000//Config.TIMERINTERVALL
-        		);
+        monitor.schedule(new CheckFileTask(), 0, Config.TIMERINTERVALL);
         
 	}
 	

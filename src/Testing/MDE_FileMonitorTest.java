@@ -1,11 +1,8 @@
 package Testing;
 
-import java.io.File;
-
 import game.FourInARowGame;
 import game.Player;
 import general.Config;
-import io.FileMonitor;
 
 public class MDE_FileMonitorTest {
 
