@@ -14,9 +14,9 @@ public class MDE_FileMonitorTest {
 		//FileMonitor my_monitor = new FileMonitor(null);
 		
 		///Users/apfelbaum24/Desktop
-		FourInARowGame testGame = new FourInARowGame(Config.SETCOUNT); // C:\\Users\\Michi\\Desktop
+		FourInARowGame testGame = new FourInARowGame(Config.SETCOUNT); //C:\\Users\\Michi\\My Dropbox\\WI-Projekt INTERN\\test\\
 		
-		testGame.setCommDir("C:\\Users\\Michi\\My Dropbox\\WI-Projekt INTERN\\test\\");
+		testGame.setCommDir("/Users/apfelbaum24/Dropbox/WI-Projekt INTERN/test");
 		
 		testGame.startNewSet(Player.O);
 		//testGame.getCurrentSet().getWinningPlayer();
