@@ -3,8 +3,6 @@
  */
 package game;
 
-import java.util.Date;
-
 import general.Config;
 
 /**
@@ -14,68 +12,13 @@ import general.Config;
 public class Set {
 	private Player startingPlayer;
 	private Player currentPlayer;
-	private Player winnerPlayer;
 	private Player ourPlayer;
 	private Player enemyPlayer;
 	private Board board;
 	
-	//Zeitstempel, wann ein Satz begonne und beendet wurde
-	private Date startTime;
-	private Date endTime;
-	
-	public Date getStartTime() {
-		return startTime;
-	}
-
-
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-
-	public Date getEndTime() {
-		return endTime;
-	}
-
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
-	}
-
-	//Der vom Server uebermittelte Satzsatus
-	private String setStatus;
-	
 	public Set(Player ourPlayer) {
 		board = new Board(Config.COLS, Config.ROWS);
 		this.setOurPlayer(ourPlayer);
-	}
-	
-	
-	/**
-	 * Fuehrt einen Zug aus und aktualisiert den Gewinner
-	 * @param move Der Zug, der auf dem Brett gemacht werden soll
-	 */
-	public void makeMove(Move move) {
-		board.makeMove(move);
-		winnerPlayer = board.findWinner();
-	}
-	
-	/**
-	 * Fuehrt einen Wurf aus und aktualisiert den Gewinner
-	 * @param player Der werfende Spieler
-	 * @param column Die Spalte, in die geworfen werden soll
-	 */
-	public void makeDrop(Player player, int column) {
-		board.makeDrop(player, column);
-		winnerPlayer = board.findWinner();
-	}
-	
-	public String getSetStatus() {
-		return setStatus;
-	}
-
-	public void setSetStatus(String setStatus) {
-		this.setStatus = setStatus;
 	}
 	
 	public Player getStartingPlayer() {
@@ -85,19 +28,15 @@ public class Set {
 	public void setStartingPlayer(Player startingPlayer) {
 		this.startingPlayer = startingPlayer;
 	}
+
+	public Player getWinningPlayer() {
+		return this.board.findWinner();
+	}
 	
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
 	
-	public Player getWinnerPlayer() {
-		return winnerPlayer;
-	}
-
-	public void setWinnerPlayer(Player winnerPlayer) {
-		this.winnerPlayer = winnerPlayer;
-	}
-
 	public Board getBoard() {
 		return board;
 	}
@@ -119,13 +58,8 @@ public class Set {
 		return enemyPlayer;
 	}
 
-	/**
-	 * Fixiert den gegnerischen Spieler und implizit unseren
-	 * @param enemyPlayer Die "Farbe", die der Gegenspieler bekommt
-	 */
 	public void setEnemyPlayer(Player enemyPlayer) {
 		this.enemyPlayer = enemyPlayer;
-		this.ourPlayer = (enemyPlayer == Player.X) ? Player.O : Player.X;
 	}
 	
 	

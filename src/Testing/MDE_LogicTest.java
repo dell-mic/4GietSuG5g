@@ -25,7 +25,6 @@ public class MDE_LogicTest {
 		
 		//solange spielen, bis ein Gewinner feststeht; Patt wird noch nicht erkannt
 		while (my_board.findWinner() == null) {
-			//Spielerwechsel
 			currentPlayer = (currentPlayer == Player.O) ? Player.X : Player.O;
 			
 			System.out.println("\n\n\n\n\n\n");

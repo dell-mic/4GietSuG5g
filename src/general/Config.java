@@ -27,12 +27,4 @@ public class Config {
 	 * Anzahl Saetze, die waehrend eines Spiels standardmaessig gepsielt werden
 	 */
 	public static int SETCOUNT = 3;
-	
-	/**
-	 * Dateinamen zur Kommunikation mit dem Server
-	 */
-	public static String FILENAME_SPIELER_X2SERVER = "spielerx2server.txt";
-	public static String FILENAME_SPIELER_O2SERVER = "spielero2server.txt";
-	public static String FILENAME_SERVER2SPIELER_X = "server2spielerx.xml";
-	public static String FILENAME_SERVER2SPIELER_O = "server2spielero.xml";
 }
